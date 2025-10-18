@@ -67,7 +67,6 @@ const config: Config = {
   ],
 
   themeConfig: {
-    // Replace with your project's social card
     image: 'img/docusaurus-social-card.jpg',
     colorMode: {
       respectPrefersColorScheme: true,
@@ -83,7 +82,8 @@ const config: Config = {
           type: 'docSidebar',
           sidebarId: 'tutorialSidebar',
           position: 'left',
-          label: 'Tutorial',
+          label: 'Docs',
+          href: '/docs/overview/quick-start',
         },
         {
           href: 'https://github.com/snapiter',
@@ -96,11 +96,11 @@ const config: Config = {
       style: 'dark',
       links: [
         {
-          title: 'Docs',
+          title: 'Resources',
           items: [
             {
-              label: 'Tutorial',
-              to: '/docs/intro',
+              label: 'Quick Start',
+              to: '/docs/overview/quick-start',
             },
           ],
         },
