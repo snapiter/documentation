@@ -3,8 +3,8 @@ import type {Config} from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 
 const config: Config = {
-  title: 'My Site',
-  tagline: 'Dinosaurs are cool',
+  title: 'Snapiter',
+  tagline: 'Snapiter Documentation',
   favicon: 'img/favicon.ico',
 
   future: {
