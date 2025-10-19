@@ -11,10 +11,7 @@ const config: Config = {
     v4: true, 
   },
 
-  // Set the production url of your site here
   url: 'https://docs.snapiter.com',
-  // Set the /<baseUrl>/ pathname under which your site is served
-  // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: '/',
 
   // GitHub pages deployment config.
@@ -96,7 +93,20 @@ const config: Config = {
       style: 'dark',
       links: [
         {
-          title: 'Resources',
+          title: 'Hosted',
+          items: [
+            {
+              label: 'Snapiter',
+              to: 'https://snapiter.com',
+            },
+            {
+              label: 'Snapiter Login',
+              to: 'https://app.snapiter.com',
+            },
+          ],
+        },
+        {
+          title: 'Self Hosted',
           items: [
             {
               label: 'Quick Start',
