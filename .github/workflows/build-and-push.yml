@@ -1,0 +1,33 @@
+name: SnapIter
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  dockerbuild:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build Docker image
+        run: |
+          IMAGE_TAG=ghcr.io/snapiter/documentation:latest
+          docker build -t "$IMAGE_TAG" .
+
+      - name: Push Docker image
+        run: |
+          IMAGE_TAG=ghcr.io/snapiter/documentation:latest
+          docker push "$IMAGE_TAG"
