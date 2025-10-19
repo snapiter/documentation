@@ -2,28 +2,29 @@
 sidebar_position: 1
 ---
 
-# Quick start
-Here is a quick, way to install Snapiter.
+# Quick Start
 
-## requirements
-Docker
-maptiler
-SMTP server
+Get Snapiter running in minutes.
 
-## Set up the server
-Install docker
+## Requirements
+- Docker  
+- MapTiler account  
+- SMTP server  
 
-WGET docker-compose file
+(See the [Requirements](/docs/install/requirements) page for details.)
 
-## Environment variables
-https://github.com/snapiter/demo/blob/main/.env.example
-
-
-## Start containers
+## Set Up the Server
+1. Install Docker  
+2. Download the Docker Compose file:  
+```bash
+wget https://github.com/snapiter/demo/blob/main/docker-compose.yml
 ```
+
+3. Configure environment variables using the .env.example
+
+```bash
 docker compose up -d
 ```
 
-## Download the app
 
-
+Snapiter is now running!
