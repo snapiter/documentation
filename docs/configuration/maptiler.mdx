@@ -1,10 +1,16 @@
 ---
-sidebar_position: 2
+sidebar_position: 3
 ---
 
 # MapTiler
 
-The Trackable feature lets you follow anything that moves, your camper, boat, or even yourself.
-Each trackable is linked to a unique hostname and can include multiple devices or trips, representing different journeys.
+SnapIter supports MapTiler, a modern mapping platform offering fast, high-quality map tiles with customizable styles and terrain data.
+You can use MapTiler as an alternative for OpenStreetMap
 
-You can create and manage several trackables at once, making it easy to manage different adventures, vehicles, or people, all from one place.
+To enable MapTiler in SnapIter, add your API key to the .env file:
+```bash
+SNAPITER_MAPTILER_KEY=your_maptiler_api_key
+```
+
+You could get an API key for free at [maptiler](https://www.maptiler.com/cloud/)
+Do not forget to add your hostname to the allowed urls at the API key.
