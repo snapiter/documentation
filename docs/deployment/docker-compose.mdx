@@ -1,0 +1,119 @@
+---
+sidebar_position: 3
+---
+
+# Docker compose
+
+This guide explains how Snapiter runs using **Docker Compose** and how to configure it for **production** deployment.
+
+---
+
+## Overview
+
+Snapiter uses Docker Compose to manage multiple services that together form the full application stack:
+
+- **Frontend** – The web interface for users.  
+- **Backend (API)** – Handles business logic and API requests.  
+- **Database (PostgreSQL)** – Stores application data.  
+- **MinIO** – Provides S3-compatible object storage for uploads.  
+- **Mailpit** (development only) – Captures outgoing emails for testing.
+
+---
+
+## Prerequisites
+
+Before you begin, make sure you have:
+
+- **Docker** installed – [Install Docker](https://docs.docker.com/engine/install/)
+- A **MapTiler** account (for map API keys)
+- Access to an **SMTP server** (for sending emails in production)
+
+---
+
+## Step 1 – Download the Configuration Files
+
+If you don’t have them yet, download the required files:
+
+```bash
+curl -O https://raw.githubusercontent.com/snapiter/demo/main/.env
+curl -O https://raw.githubusercontent.com/snapiter/demo/main/docker-compose-prod.yml
+```
+
+## Step 2 – Understand the .env File
+
+The .env file defines all environment variables used by both the frontend and backend.
+
+Below is the default configuration:
+
+```bash
+# Frontend environment variables
+SNAPITER_MAPTILER_KEY=
+SNAPITER_SHOW_BASE_LINE_UNDER_ANIMATION=false
+SNAPITER_API_URL="https://API.YOURURL.COM"
+SNAPITER_MARKER_URL="https://API.YOURURL.COM"
+
+# Backend environment variables
+POSTGRES_DB=snapiter
+POSTGRES_USER=snapiter
+POSTGRES_PASSWORD=
+SPRING_MAIL_HOST=
+SPRING_MAIL_PORT=1025
+SPRING_MAIL_USERNAME=
+SPRING_MAIL_PASSWORD=
+SPRING_MAIL_PROPERTIES_MAIL_SMTP_AUTH=false
+SPRING_MAIL_PROPERTIES_MAIL_SMTP_STARTTLS_ENABLE=false
+JWT_SECRET=your-secret-key-change-in-production
+FRONTEND_EMAIL_URL=https://YOURURL.COM/dashboard/auth/consume
+AWS_END_POINT=
+AWS_ACCESS_KEY=
+AWS_SECRET_KEY=
+AWS_REGION=eu-central-1
+BUCKET=snapiter
+```
+
+### Change jwt:
+JWT_SECRET is used to sign and verify authentication tokens (JWTs).
+You must replace the default value with a long, random string in production to keep user sessions secure.
+
+To generate a secure key, run one of the following commands:
+``` bash
+openssl rand -base64 64
+```
+### Change the postgres password:
+The postgres password is used for the database, make it something secure
+You must replace the default value with a long, random string in production to keep user sessions secure.
+You could use the [lastpass password generator](https://www.lastpass.com/features/password-generator) for this. 
+
+
+## Step 3 – Configure for Production
+
+| Variable                                           | Description                    |
+| -------------------------------------------------- | ------------------------------ |
+| `SNAPITER_MAPTILER_KEY`                            | Your MapTiler API key, once you add a maptiler key, it will automatically use maptiler as map provider          |
+| `SNAPITER_API_URL`                                 | Public backend URL             |
+| `SNAPITER_MARKER_URL`                              | Public marker URL, usually the same as SNAPITER_API_URL          |
+| `POSTGRES_PASSWORD`                                | Database password             |
+| `SPRING_MAIL_HOST`                                 | SMTP server hostname           |
+| `SPRING_MAIL_PORT`                                 | SMTP port (usually 465 or 587) |
+| `SPRING_MAIL_USERNAME`                             | SMTP login username            |
+| `SPRING_MAIL_PASSWORD`                             | SMTP login password            |
+| `SPRING_MAIL_PROPERTIES_MAIL_SMTP_AUTH`            | Enable SMTP auth               |
+| `SPRING_MAIL_PROPERTIES_MAIL_SMTP_STARTTLS_ENABLE` | Enable encryption              |
+| `JWT_SECRET`                                       | Secret key for JWT signing     |
+| `FRONTEND_EMAIL_URL`                               | Public frontend URL            |
+| `AWS_END_POINT`                                    | S3 endpoint           |
+| `AWS_ACCESS_KEY`                                   | S3 access key                  |
+| `AWS_SECRET_KEY`                                   | S3 secret key                  |
+| `BUCKET`                                           | S3 Bucket name for uploads        |
+
+
+Keep .env files private. Never commit them to Git!
+
+
+## Step 4 – Start the Stack
+
+Once your .env file is configured, bring up all services with:
+```bash 
+docker compose up -d
+```
+Pay attention to the -d flag, this runs all containers in the background

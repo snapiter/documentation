@@ -7,24 +7,31 @@ sidebar_position: 1
 Get Snapiter running in minutes.
 
 ## Requirements
-- Docker  
-- MapTiler account  
-- SMTP server  
+- Docker – Docker is used for the backend and frontend services.
+- SMTP server – This is used to for login
 
 (See the [Requirements](/docs/install/requirements) page for details.)
 
 ## Set Up the Server
-1. Install Docker  
-2. Download the Docker Compose file:  
+### 1. **Install [Docker](https://docs.docker.com/engine/install/)**  
+Snapiter runs entirely inside Docker containers, so Docker must be installed first.  
+Follow the instructions for your operating system, then verify the installation:
 ```bash
-wget https://github.com/snapiter/demo/blob/main/docker-compose.yml
+docker --version
+```
+### 2. Download configuration files
+Snapiter uses a .env file to store configuration (like API keys and email settings)
+and a docker-compose.yml file to define how the services run.
+Download both from the Snapiter demo repository:
+```bash
+curl -O https://raw.githubusercontent.com/snapiter/demo/main/.env
+curl -O https://raw.githubusercontent.com/snapiter/demo/main/docker-compose.yml
 ```
 
-3. Configure environment variables using the .env.example
+### 3. Start the server:
 
 ```bash
 docker compose up -d
 ```
 
-
-Snapiter is now running!
+Snapiter is now running at http://localhost:8000

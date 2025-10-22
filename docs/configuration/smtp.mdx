@@ -1,0 +1,72 @@
+---
+sidebar_position: 2
+---
+
+# SMTP Configuration
+
+Snapiter uses **email-based login** for users, meaning users receive a login link via email instead of a password.  
+We believe this is an easy way of being able to login into the system.
+
+---
+
+## Why SMTP Is Needed
+
+SMTP is the standard for sending emails.  
+Snapiter uses it to send **magic login links** to users when they sign in.
+
+These emails come from the SMTP server you configure.  
+In development, we use mailpit, in production however, you should use a trusted SMTP provider (e.g., Postmark, SendGrid, Mailgun, or your own domain’s mail server).
+
+---
+
+## Environment Variables
+
+In your `.env` file, configure the following variables:
+
+| Variable | Description |
+|-----------|-------------|
+| `SPRING_MAIL_HOST` | SMTP server hostname |
+| `SPRING_MAIL_PORT` | SMTP port (usually `465` or `587`) |
+| `SPRING_MAIL_USERNAME` | SMTP login username (if required) |
+| `SPRING_MAIL_PASSWORD` | SMTP login password (if required) |
+| `SPRING_MAIL_PROPERTIES_MAIL_SMTP_AUTH` | Enable SMTP authentication (`true` / `false`) |
+| `SPRING_MAIL_PROPERTIES_MAIL_SMTP_STARTTLS_ENABLE` | Enable encryption (STARTTLS) (`true` / `false`) |
+
+---
+
+## Example Configurations
+
+### Development
+In the docker compose of the [demo](https://github.com/snapiter/demo), we supply a mailpit with configuration.
+
+```bash
+SPRING_MAIL_HOST=mailpit
+SPRING_MAIL_PORT=1025
+SPRING_MAIL_PROPERTIES_MAIL_SMTP_AUTH=false
+SPRING_MAIL_PROPERTIES_MAIL_SMTP_STARTTLS_ENABLE=false
+```
+
+You can then access Mailpit’s web UI at:
+http://localhost:8025
+
+
+### Production
+For production deployments we suggest you use a real SMTP service such as SendGrid, Postmark, or your domain mail provider.
+``` bash
+SPRING_MAIL_HOST=smtp.sendgrid.net
+SPRING_MAIL_PORT=587
+SPRING_MAIL_USERNAME=apikey
+SPRING_MAIL_PASSWORD=your-sendgrid-api-key
+SPRING_MAIL_PROPERTIES_MAIL_SMTP_AUTH=true
+SPRING_MAIL_PROPERTIES_MAIL_SMTP_STARTTLS_ENABLE=true
+```
+
+
+## Issues
+
+| Problem                       | Likely Cause                     | Solution                                                   |
+| ----------------------------- | -------------------------------- | ---------------------------------------------------------- |
+| Emails not sending            | Wrong `SPRING_MAIL_HOST` or port | Verify SMTP server and port                                |
+| “Authentication failed” error | Invalid username/password        | Check credentials or enable “App Passwords” if using Gmail |
+| “Connection timed out”        | Firewall or port blocked         | Ensure port 465 or 587 is open                             |
+| Mails received in spam        | Missing DNS settings             | Add SPF, DKIM, and DMARC records for your domain           |
