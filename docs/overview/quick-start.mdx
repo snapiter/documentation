@@ -7,19 +7,23 @@ sidebar_position: 1
 Get Snapiter running in minutes.
 
 ## Requirements
-- Docker – Docker is used for the backend and frontend services.
-- SMTP server – This is used to for login
+- [Docker](https://docs.docker.com/engine/install/) – Docker is used for the backend and frontend services.
+- SMTP server – This is used to login into the system
 
-## Set Up the Server
-### 1. **Install [Docker](https://docs.docker.com/engine/install/)**  
-Snapiter runs entirely inside Docker containers, so Docker must be installed first.  
-Follow the instructions for your operating system, then verify the installation:
+## Set Up snapiter
+### 1. Install Docker  
+Snapiter runs entirely on Docker containers, the first step would be to install Docker.  
+Follow the installation instructions for your operating system, then verify the installation
+
+[How to install docker](https://docs.docker.com/engine/install/)
+
 ```bash
 docker --version
 ```
+
 ### 2. Download configuration files
 Snapiter uses a .env file to store configuration (like API keys and email settings)
-and a docker-compose.yml file to define how the services run.
+and a docker-compose.yml which defines how to run snapiter.
 Download both from the Snapiter demo repository:
 ```bash
 curl -O https://raw.githubusercontent.com/snapiter/demo/main/.env
@@ -31,5 +35,5 @@ curl -O https://raw.githubusercontent.com/snapiter/demo/main/docker-compose.yml
 ```bash
 docker compose up -d
 ```
-
+Congratulations!<br />
 Snapiter is now running at http://localhost:8000
